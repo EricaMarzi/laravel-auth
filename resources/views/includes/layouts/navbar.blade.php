@@ -17,9 +17,11 @@
                 <li class="nav-item">
                     <a class="nav-link {{Route::is('guest.home') ? 'active' : ''}}" href="{{url('/') }}">{{ __('Home') }}</a>
                 </li>
+                @auth
                 <li class="nav-item">
                     <a class="nav-link {{Request::is('admin/posts*') ? 'active' : ''}}" href="{{route('admin.post.index') }}">Post</a>
                 </li>
+                @endauth
 
             </ul>
 
