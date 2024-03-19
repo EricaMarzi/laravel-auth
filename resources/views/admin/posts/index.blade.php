@@ -28,9 +28,22 @@
             <td>{{$post->created_at}}</td>
             <td>{{$post->updated_at}}</td>
             <td>
-                <a href="{{route('admin.post.show', $post->id)}}" class="btn btn-sm btn-secondary">
-                    <i class="fas fa-eye"></i>
-                </a>
+                <div class="d-flex gap-2">
+                    <a href="{{route('admin.post.show', $post->id)}}" class="btn btn-sm btn-info">
+                        <i class="fas fa-eye"></i>
+                    </a>
+                    <a href="{{route('admin.post.edit', $post)}}" class="btn btn-sm btn-warning">
+                        <i class="fas fa-pencil"></i>
+                    </a>
+
+                    <form action="{{route('admin.post.destroy', $post)}}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type='submit' class="btn btn-sm btn-danger">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                </div>
             </td>
         </tr>
         @empty
