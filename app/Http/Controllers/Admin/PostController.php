@@ -42,6 +42,7 @@ class PostController extends Controller
         $post = new Post();
         $post->fill($data);
         $post->slug = Str::slug($post->title);
+        $post->is_published = array_key_exists('is_published', $data);
         $post->save();
 
         return to_route('admin.post.show', $post)->with('message', 'Post creato con successo')->with('type', 'success');
