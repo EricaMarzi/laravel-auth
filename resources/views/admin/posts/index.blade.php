@@ -4,8 +4,19 @@
 
 @section('content')
 
-<header>
+<header class="d-flex align-items-center justify-content-between">
     <h1>Posts</h1>
+
+    <form action="{{route('admin.post.index')}}" method="GET">
+        <div class="input-group">
+            <select class="form-select" name="filter">
+                <option value="">Tutti</option>
+                <option value="published" @if($filter==='published' ) selected @endif>Pubblicati</option>
+                <option value="drafts" @if($filter==='drafts' ) selected @endif>Bozze</option>
+            </select>
+            <button class="btn btn-outline-primary" type="submit">Cerca</button>
+        </div>
+    </form>
 </header>
 
 <table class="table">
@@ -14,6 +25,7 @@
             <th scope="col">#</th>
             <th scope="col">Titolo</th>
             <th scope="col">Slug</th>
+            <th scope="col">Stato</th>
             <th scope="col">Data creazione</th>
             <th scope="col">Ultima modifica</th>
             <th></th>
