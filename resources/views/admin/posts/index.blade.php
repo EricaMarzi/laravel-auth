@@ -28,7 +28,11 @@
             <th scope="col">Stato</th>
             <th scope="col">Data creazione</th>
             <th scope="col">Ultima modifica</th>
-            <th></th>
+            <th>
+                <a href="{{route('admin.post.create')}}" class="btn btn-sm btn-success px-4">
+                    <i class="fas fa-plus me-2"></i>Nuovo
+                </a>
+            </th>
         </tr>
     </thead>
     <tbody>

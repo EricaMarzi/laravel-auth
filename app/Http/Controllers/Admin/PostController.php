@@ -20,7 +20,7 @@ class PostController extends Controller
             $query->whereIsPublished($value);
         }
 
-        $posts = $query->paginate(10);
+        $posts = $query->paginate(10)->withQueryString();
         return view('admin\posts\index', compact('posts', 'filter'));
     }
 
@@ -29,7 +29,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin\posts\create');
     }
 
     /**
