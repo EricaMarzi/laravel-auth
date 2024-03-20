@@ -22,7 +22,7 @@
     <tbody>
         @forelse($posts as $post)
         <tr>
-            <th scope="row">1</th>
+            <th scope="row">{{$post->id}}</th>
             <td>{{$post->title}}</td>
             <td>{{$post->slug}}</td>
             <td>{{$post->created_at}}</td>
@@ -36,7 +36,7 @@
                         <i class="fas fa-pencil"></i>
                     </a>
 
-                    <form action="{{route('admin.post.destroy', $post)}}" method="POST">
+                    <form action="{{route('admin.post.destroy', $post)}}" method="POST" class="delete-form">
                         @csrf
                         @method('DELETE')
                         <button type='submit' class="btn btn-sm btn-danger">
@@ -55,4 +55,9 @@
         @endforelse
     </tbody>
 </table>
+@endsection
+
+@section('scripts')
+<!-- <script src="{{Vite::asset('js/delete_confirmation.js')}}"></script> -->
+@vite('resources/js/delete_confirmation.js')
 @endsection
