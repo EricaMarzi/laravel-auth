@@ -25,6 +25,7 @@
             <th scope="row">{{$post->id}}</th>
             <td>{{$post->title}}</td>
             <td>{{$post->slug}}</td>
+            <td>{{$post->is_published ? 'Pubblicato' : 'Bozza'}}</td>
             <td>{{$post->created_at}}</td>
             <td>{{$post->updated_at}}</td>
             <td>

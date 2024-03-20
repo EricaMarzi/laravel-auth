@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id()->unique();
             $table->string('title', 50)->unique();
             $table->string('slug')->unique();
+            $table->boolean('is_published')->default(0);
             $table->text('content');
             $table->string('image')->nullable();
             $table->timestamps();
