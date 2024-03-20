@@ -55,6 +55,11 @@
         @endforelse
     </tbody>
 </table>
+
+@if($posts->hasPages())
+{{$posts->links()}}
+@endif
+
 @endsection
 
 @section('scripts')
