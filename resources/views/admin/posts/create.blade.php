@@ -9,7 +9,33 @@
 
 <form action="{{route('admin.post.store')}}" method="POST">
     @csrf
-
+    <div class="row">
+        <div class="col-12">
+            <div class="mb-3">
+                <label for="title" class="form-label">Titolo post</label>
+                <input type="text" class="form-control" id="title" name="title" value="{{old('title', '')}}" required>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="mb-3">
+                <label for="content" class="form-label">Contenuto post</label>
+                <textarea class="form-control" id="content" rows="10" name="content" required>
+                {{old('content', '')}}
+                </textarea>
+            </div>
+        </div>
+        <div class="col-11">
+            <div class="mb-3">
+                <label for="image" class="form-label">Immagine post</label>
+                <input type="url" class="form-control" id="image" placeholder="http:// o https://" name="image">
+            </div>
+        </div>
+        <div class="col-1">
+            <div class="mb-3">
+                <img src="{{old('image', 'https://marcolanci.it/boolean/assets/placeholder.png')}}" class="img-fluid" alt="Img post" id="preview">
+            </div>
+        </div>
+    </div>
     <hr>
     <div class="d-flex align-items-center justify-content-between">
         <a href="{{route('admin.post.index')}}" class="btn btn-sm btn-secondary">
@@ -25,4 +51,16 @@
         </div>
     </div>
 </form>
+@endsection
+
+@section('scritps')
+<script>
+    const placeholder = 'https://marcolanci.it/boolean/assets/placeholder.png';
+    const input = document.getElementById('image');
+    const preview = document.getElementById('preview');
+
+    input.addEventListener('input', () => {
+        preview.src = input.value || placeholder;
+    })
+</script>
 @endsection
