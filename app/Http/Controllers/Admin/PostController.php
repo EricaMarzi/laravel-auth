@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Post;
 use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -38,6 +39,20 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required|string|min:5|max:50|unique:posts',
+            'content' => 'required|string',
+            'image' => 'nullable|url',
+            'is_published' => 'nullable|boolean'
+        ], [
+            'title.required' => 'Il titolo è obbligatorio',
+            'title.min' => 'Il titolo deve essere almeno di :min caratteri',
+            'title.max' => 'Il titolo deve essere massimo di :max caratteri',
+            'title.unique' => 'Titolo già esistente',
+            'image.url' => 'L\'indirizzo non è valido',
+            'content.required' => 'Il contenuto è obbligatorio'
+        ]);
+
         $data = $request->all();
         $post = new Post();
         $post->fill($data);
@@ -61,7 +76,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('admin\posts\edit', compact('post'));
     }
 
     /**
@@ -69,7 +84,26 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $request->validate([
+            'title' => ['required', 'string', 'min:5', 'max:50'],
+            'content' => 'required|string',
+            'image' => 'nullable|url',
+            'is_published' => 'nullable|boolean'
+        ], [
+            'title.required' => 'Il titolo è obbligatorio',
+            'title.min' => 'Il titolo deve essere almeno di :min caratteri',
+            'title.max' => 'Il titolo deve essere massimo di :max caratteri',
+            'title.unique' => 'Titolo già esistente',
+            'image.url' => 'L\'indirizzo non è valido',
+            'content.required' => 'Il contenuto è obbligatorio'
+        ]);
+
+        $data = $request->all();
+        $data['slug'] = Str::slug($data['title']);
+        $data['is_published'] = Arr::exists($data, 'is_published');
+        $post->update($data);
+
+        return to_route('admin.post.show', $post)->with('message', 'Post modificato con successo')->with('type', 'success');
     }
 
     /**
