@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Post>
@@ -17,12 +18,18 @@ class PostFactory extends Factory
      */
     public function definition(): array
     {
+        Storage::makeDirectory('post_image');
+
         $title = fake()->text(20);
+        $img = fake()->image(null, 250, 250);
+
+        $img_url = Storage::putFileAs('post_image', $img);
+
         return [
             'title' => $title,
             'slug' => Str::slug($title),
             'content' => fake()->paragraph(40, true),
-            'image' => fake()->imageUrl(250, 250, true),
+            'image' => $img_url,
             'is_published' => fake()->boolean()
         ];
     }

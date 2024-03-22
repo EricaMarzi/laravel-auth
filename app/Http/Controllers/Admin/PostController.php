@@ -40,7 +40,6 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
         $request->validate([
             'title' => 'required|string|min:5|max:50|unique:posts',
             'content' => 'required|string',
@@ -60,6 +59,12 @@ class PostController extends Controller
         $post->fill($data);
         $post->slug = Str::slug($post->title);
         $post->is_published = array_key_exists('is_published', $data);
+
+        if (Arr::exists($data, 'image')) {
+            $img_url = Storage::putFile('post_images', $data['image']);
+            $post->image = $img_url;
+        }
+
         $post->save();
 
         return to_route('admin.post.show', $post)->with('message', 'Post creato con successo')->with('type', 'success');
