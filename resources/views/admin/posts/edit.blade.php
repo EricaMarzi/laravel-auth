@@ -7,7 +7,7 @@
     <h1>Modifica Post</h1>
 </header>
 
-<form action="{{route('admin.post.update', $post)}}" method="POST">
+<form action="{{route('admin.post.update', $post)}}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <div class="row">
@@ -28,7 +28,7 @@
         <div class="col-11">
             <div class="mb-3">
                 <label for="image" class="form-label">Immagine post</label>
-                <input type="url" class="form-control" id="image" placeholder="http:// o https://" name="image" value="{{old('image', $post->image)}}">
+                <input type="file" class="form-control" id="image" placeholder="http:// o https://" name="image" value="{{old('image', $post->image)}}">
             </div>
         </div>
         <div class="col-1">

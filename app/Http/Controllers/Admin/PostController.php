@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -39,10 +40,11 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
         $request->validate([
             'title' => 'required|string|min:5|max:50|unique:posts',
             'content' => 'required|string',
-            'image' => 'nullable|url',
+            'image' => 'nullable|image',
             'is_published' => 'nullable|boolean'
         ], [
             'title.required' => 'Il titolo è obbligatorio',

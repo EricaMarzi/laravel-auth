@@ -7,7 +7,7 @@
     <h1>Nuovo Post</h1>
 </header>
 
-<form action="{{route('admin.post.store')}}" method="POST">
+<form action="{{route('admin.post.store')}}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="row">
         <div class="col-12">
@@ -27,7 +27,7 @@
         <div class="col-11">
             <div class="mb-3">
                 <label for="image" class="form-label">Immagine post</label>
-                <input type="url" class="form-control" id="image" placeholder="http:// o https://" name="image">
+                <input type="file" class="form-control" id="image" placeholder="http:// o https://" name="image">
             </div>
         </div>
         <div class="col-1">
