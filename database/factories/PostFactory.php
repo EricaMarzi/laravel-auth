@@ -18,16 +18,16 @@ class PostFactory extends Factory
      */
     public function definition(): array
     {
-        Storage::makeDirectory('post_image');
+        Storage::makeDirectory('image_post');
 
         $title = fake()->text(20);
+        $slug = Str::slug($title);
         $img = fake()->image(null, 250, 250);
-
-        $img_url = Storage::putFileAs('post_image', $img);
+        $img_url = Storage::putFileAs('image_post', $img, $slug);
 
         return [
             'title' => $title,
-            'slug' => Str::slug($title),
+            'slug' => $slug,
             'content' => fake()->paragraph(40, true),
             'image' => $img_url,
             'is_published' => fake()->boolean()
