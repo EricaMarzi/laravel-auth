@@ -110,9 +110,11 @@ class PostController extends Controller
         $data['is_published'] = Arr::exists($data, 'is_published');
         $post->is_published = array_key_exists('is_published', $data);
 
-        if (Arr::exists($data, 'image')) {
-            $img_url = Storage::putFile('post_images', $data['image']);
-            $post->image = $img_url;
+
+        if ($request->hasFile('image')) {
+            // Carica la nuova immagine e aggiorna l'URL nel database
+            $img_url = Storage::putFile('post_images', $request->file('image'));
+            $data['image'] = $img_url;
         }
 
         $post->update($data);
@@ -125,6 +127,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        if ($post->image) Storage::delete($post->image);
         $post->delete();
         return to_route('admin.post.index')->with('type', 'danger')->with('message', 'Post eliminato');
     }

@@ -25,6 +25,8 @@ class PostFactory extends Factory
         $img = fake()->image(null, 250, 250);
         $img_url = Storage::putFileAs('image_post', $img, $slug);
 
+        Storage::makeDirectory('post_image');
+
         return [
             'title' => $title,
             'slug' => $slug,
