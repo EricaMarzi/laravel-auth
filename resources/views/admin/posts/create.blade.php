@@ -19,9 +19,7 @@
         <div class="col-12">
             <div class="mb-3">
                 <label for="content" class="form-label">Contenuto post</label>
-                <textarea class="form-control" id="content" rows="10" name="content" required>
-                {{old('content', '')}}
-                </textarea>
+                <textarea class="form-control" id="content" rows="10" name="content" required>{{old('content', '')}}</textarea>
             </div>
         </div>
         <div class="col-11">

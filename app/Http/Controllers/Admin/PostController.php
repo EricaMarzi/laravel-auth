@@ -94,7 +94,7 @@ class PostController extends Controller
         $request->validate([
             'title' => ['required', 'string', 'min:5', 'max:50'],
             'content' => 'required|string',
-            'image' => 'nullable|url',
+            'image' => 'nullable|image',
             'is_published' => 'nullable|boolean'
         ], [
             'title.required' => 'Il titolo è obbligatorio',
@@ -108,6 +108,13 @@ class PostController extends Controller
         $data = $request->all();
         $data['slug'] = Str::slug($data['title']);
         $data['is_published'] = Arr::exists($data, 'is_published');
+        $post->is_published = array_key_exists('is_published', $data);
+
+        if (Arr::exists($data, 'image')) {
+            $img_url = Storage::putFile('post_images', $data['image']);
+            $post->image = $img_url;
+        }
+
         $post->update($data);
 
         return to_route('admin.post.show', $post)->with('message', 'Post modificato con successo')->with('type', 'success');

@@ -20,15 +20,14 @@
         <div class="col-12">
             <div class="mb-3">
                 <label for="content" class="form-label">Contenuto post</label>
-                <textarea class="form-control" id="content" rows="10" name="content" required>
-                {{old('content', $post->content)}}
+                <textarea class="form-control" id="content" rows="10" name="content" required>{{old('content', $post->content)}}
                 </textarea>
             </div>
         </div>
         <div class="col-11">
             <div class="mb-3">
                 <label for="image" class="form-label">Immagine post</label>
-                <input type="file" class="form-control" id="image" placeholder="http:// o https://" name="image" value="{{old('image', $post->image)}}">
+                <input type="file" class="form-control" id="image" placeholder="http:// o https://" name="image">
             </div>
         </div>
         <div class="col-1">
